@@ -22,7 +22,29 @@ const App = () => {
 
   const [currencyMin, setCurrencyMin] = useState();
 
-  const getData = async () => {
+  const getDataStart = async () => {
+    try {
+      const startFirst = await axios.get(
+        'http://localhost:5000/api/v1/first'
+      );
+      const startSecond = await axios.get(
+        'http://localhost:5000/api/v1/second'
+      );
+      const startThird = await axios.get(
+        'http://localhost:5000/api/v1/third'
+      );
+
+      Promise.all([startFirst, startSecond, startThird]).then(() => {
+        setCurrencyFirst(startFirst);
+        setCurrencySecond(startSecond);
+        setCurrencyThird(startThird);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getDataEnd = async () => {
     try {
       const resFirst = await axios.get(
         'http://localhost:5000/api/v1/first/poll'
@@ -34,16 +56,23 @@ const App = () => {
         'http://localhost:5000/api/v1/third/poll'
       );
 
-      setCurrencyFirst(resFirst);
-      setCurrencySecond(resSecond);
-      setCurrencyThird(resThird);
+      Promise.all([resFirst, resSecond, resThird]).then(() => {
+        setCurrencyFirst(resFirst);
+        setCurrencySecond(resSecond);
+        setCurrencyThird(resThird);
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getData();
+    getDataStart();
+  }, []);
+
+  useEffect(() => {
+    getDataEnd();
+
     getCurrency(currencyFirst, setCurrencyFirstArr);
     getCurrency(currencySecond, setCurrencySecondArr);
     getCurrency(currencyThird, setCurrencyThirdArr);
