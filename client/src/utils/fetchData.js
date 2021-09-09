@@ -6,15 +6,9 @@ export const getDataStart = async (
   setCurrencyThird
 ) => {
   try {
-    const startFirst = await axios.get(
-      `${process.env.REACT_APP_API}/first`
-    );
-    const startSecond = await axios.get(
-      `${process.env.REACT_APP_API}/second`
-    );
-    const startThird = await axios.get(
-      `${process.env.REACT_APP_API}/third`
-    );
+    const startFirst = await axios.get(`${process.env.REACT_APP_API}/first`);
+    const startSecond = await axios.get(`${process.env.REACT_APP_API}/second`);
+    const startThird = await axios.get(`${process.env.REACT_APP_API}/third`);
 
     Promise.all([startFirst, startSecond, startThird]).then(() => {
       setCurrencyFirst(startFirst);
@@ -32,15 +26,11 @@ export const getDataEnd = async (
   setCurrencyThird
 ) => {
   try {
-    const resFirst = await axios.get(
-      `${process.env.REACT_APP_API}/first/poll`
-    );
+    const resFirst = await axios.get(`${process.env.REACT_APP_API}/first/poll`);
     const resSecond = await axios.get(
       `${process.env.REACT_APP_API}/second/poll`
     );
-    const resThird = await axios.get(
-      `${process.env.REACT_APP_API}/third/poll`
-    );
+    const resThird = await axios.get(`${process.env.REACT_APP_API}/third/poll`);
 
     Promise.all([resFirst, resSecond, resThird]).then(() => {
       setCurrencyFirst(resFirst);

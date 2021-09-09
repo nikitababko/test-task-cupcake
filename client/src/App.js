@@ -28,7 +28,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    getDataEnd(setCurrencyFirst, setCurrencySecond, setCurrencyThird);
+    const timer = setTimeout(() => {
+      console.log(1212);
+      getDataEnd(setCurrencyFirst, setCurrencySecond, setCurrencyThird);
+    }, 200);
 
     getCurrency(currencyFirst, setCurrencyFirstArr);
     getCurrency(currencySecond, setCurrencySecondArr);
@@ -40,6 +43,8 @@ const App = () => {
       ...currencyThirdArr
     );
     setCurrencyMin(min);
+
+    return () => clearInterval(timer);
   }, [currencyFirst, currencySecond, currencyThird]);
 
   return (
